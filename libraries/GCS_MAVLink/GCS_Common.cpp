@@ -97,6 +97,7 @@
 
 #include <AP_BattMonitor/AP_BattMonitor_config.h>
 #if AP_BATTERY_ENABLED
+
 #include <AP_BattMonitor/AP_BattMonitor.h>
 #endif
 #include <AP_GPS/AP_GPS.h>
@@ -441,6 +442,17 @@ bool GCS_MAVLINK::send_battery_status()
     }
     return true;
 }
+
+// MAVLINK BASED BATTERY MONITOR
+void GCS_MAVLINK::handle_battery_msg(const mavlink_message_t &msg)
+{
+   AP_BattMonitor *battery = &AP::battery();
+    if (battery != nullptr) {
+        battery->handle_msg(msg);
+    }
+}
+
+
 #endif  // AP_BATTERY_ENABLED
 
 #if AP_RANGEFINDER_ENABLED
@@ -4611,6 +4623,11 @@ void GCS_MAVLINK::handle_message(const mavlink_message_t &msg)
         handle_generator_message(msg);
         break;
 #endif
+
+// MAVLINK BASED BATTERY MONITOR
+    case MAVLINK_MSG_ID_BATTERY_STATUS: 
+        handle_battery_msg(msg) ;
+        break;
     }
 
 }

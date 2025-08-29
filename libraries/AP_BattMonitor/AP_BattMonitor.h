@@ -256,6 +256,8 @@ public:
 
     // return true if state of health (as a percentage) can be provided and fills in soh_pct argument
     bool get_state_of_health_pct(uint8_t instance, uint8_t &soh_pct) const;
+        // handle mavlink messages
+    void handle_msg(const mavlink_message_t &msg);
 
     static const struct AP_Param::GroupInfo var_info[];
 

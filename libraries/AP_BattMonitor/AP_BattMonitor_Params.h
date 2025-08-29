@@ -44,7 +44,7 @@ public:
         INA3221                        = 30,
         ANALOG_CURRENT_ONLY            = 31,
         
-        // ANUP- CUSTOM MAVLINK
+        // MAVLINK BASED BATTERY MONITOR
         MAVLINK                        = 32,
     };
 
